@@ -4,10 +4,11 @@ from sdkit.generate import generate_images
 from sdkit.utils import log
 
 
-def make_image(prompt: str):
+
+def make_image(prompt: str) -> bytes:
     context = sdkit.Context()
 
-    # Frodo: You can place path to any other model (if u have on ofc)
+    # Frodo: You can place path to any other model (if u have it ofc)
     context.model_paths['stable-diffusion'] = 'C://SD//models//stable-diffusion//wintermoonmix_A.safetensors'
     load_model(context, 'stable-diffusion')
 
@@ -16,4 +17,4 @@ def make_image(prompt: str):
                              height=512)
 
     # save the image
-    return images[0]
+    return images[0].tobytes()

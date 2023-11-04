@@ -4,7 +4,8 @@ import sdkit
 from sdkit.filter import apply_filters
 from sdkit.models import load_model
 import os.path
-def upscale(img: Image, scale: int = 4) -> Image:
+import io
+def upscale(image_bytes: bytes, scale: int = 4) -> bytes:
     context = sdkit.Context()
 
     # set the path to the model file on the disk
@@ -12,5 +13,5 @@ def upscale(img: Image, scale: int = 4) -> Image:
     load_model(context, "realesrgan")
 
     # apply the filter
-    image_upscaled = apply_filters(context, "realesrgan", img, scale=scale)[0]
+    image_upscaled = apply_filters(context, "realesrgan", Image.open(io.BytesIO(image_bytes)), scale=scale)[0]
     return image_upscaled
