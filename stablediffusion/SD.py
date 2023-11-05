@@ -5,7 +5,14 @@ from sdkit.utils import log
 
 
 
-def make_image(prompt: str) -> bytes:
+def make_image(data: dict) -> bytes:
+    """
+    Function that generates image for you. Requires specific model at the right path.
+
+    :param data: dict with the keys from generate_images() args.
+    :return: Photo decoded to bytes.
+    """
+
     context = sdkit.Context()
 
     # Frodo: You can place path to any other model (if u have it ofc)
@@ -13,8 +20,7 @@ def make_image(prompt: str) -> bytes:
     load_model(context, 'stable-diffusion')
 
     # generate the image
-    images = generate_images(context, prompt=prompt, seed=420, width=512,
-                             height=512)
+    images = generate_images(context, **data)
 
     # save the image
     return images[0].tobytes()

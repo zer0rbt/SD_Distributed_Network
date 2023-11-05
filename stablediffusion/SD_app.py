@@ -10,29 +10,37 @@ app = Flask(__name__)
 
 @app.route('/make_image', methods=['POST'])
 def run_maker() -> Any:
-    #print(1)
+    """
+    Function, that gets http requests and starting image generation.
+
+    Receives json-request of following format:
+        {"generation_data":dict, "save_url":str},
+    where "generation_data" key contains data generation information, and "save_url" contains url, where located db.
+
+    dev note: for simplicity, you can use {"prompt": "place_any_string"} as "generation_data".
+
+    :return: Json file with 'response' key and 'error' key (optional)
+    """
+    # print(1)
     try:
         data = loads(request.get_json())
         print(data)
-        if "prompt" in data:
-            prompt = data["prompt"]
-            #print(4)
-            image_bytes = make_image(prompt=prompt)
-            #print(2)
+        if "generation_data" in data and "prompt" in data["generation_data"] and "save_url" in data:
+            gen_data = data["generation_data"]
+            # print(4)
+            image_bytes = make_image(gen_data)
+            # print(2)
             # Подготовка и отправка ответа
             if image_bytes:
                 response_data = {
                     'response': 200,
                     'data': {
-                        'image_name': prompt + ".png",
+                        'image_name': data["generation_data"]["prompt"] + ".png",
                         'image': base64.b64encode(image_bytes).decode('utf-8')
                     }
                 }
-                #print(3)
-                url = "http://localhost:5003/save_image"  # todo: get rid from static url
                 response_json = dumps(response_data)
-                response = requests.post(url, json=response_json)
-                #print(4)
+                response = requests.post(data["save_url"], json=response_json)
                 return jsonify({"response": response.status_code})
             else:
                 return jsonify({'response': 404, 'error': 'Generation failed.'}), 404
