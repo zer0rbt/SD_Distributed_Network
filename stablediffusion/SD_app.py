@@ -11,11 +11,13 @@ app = Flask(__name__)
 @app.route('/make_image', methods=['POST'])
 def run_maker() -> Any:
     """
-    Function, that gets http requests and starting image generation.
+    Function, that gets http requests and starts image generation.
 
     Receives json-request of following format:
         {"generation_data":dict, "save_url":str},
-    where "generation_data" key contains data generation information, and "save_url" contains url, where located db.
+    where:
+         "generation_data" contains data generation information
+         "save_url" contains url, where located db, where photo would be saved.
 
     dev note: for simplicity, you can use {"prompt": "place_any_string"} as "generation_data".
 

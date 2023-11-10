@@ -7,7 +7,9 @@ from sdkit.utils import log
 
 def make_image(data: dict) -> bytes:
     """
-    Function that generates image for you. Requires specific model at the right path.
+    Function that generates image for you.
+
+    Requires specific model at the right path.
 
     :param data: dict with the keys from generate_images() args.
     :return: Photo decoded to bytes.

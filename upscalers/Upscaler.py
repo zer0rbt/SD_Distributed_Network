@@ -6,6 +6,15 @@ from sdkit.models import load_model
 import os.path
 import io
 def upscale(image_bytes: bytes, scale: int = 4) -> bytes:
+    """
+    Function that upscales image.
+
+    Requires "RealESRGAN_x4plus.pth" in the right place to work.
+
+    :param image_bytes: image to upscale converted to data type "Bytes".
+    :param scale: by what factor the new image will be larger than the original.
+    :return:
+    """
     context = sdkit.Context()
 
     # set the path to the model file on the disk

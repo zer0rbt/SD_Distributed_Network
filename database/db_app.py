@@ -11,7 +11,19 @@ app = Flask(__name__)
 
 @app.route('/save_image', methods=['POST'])
 def save_image() -> Any:
-    print(3)
+    """
+    Function, that saves image in the db.
+
+    Requires running MongoDB's "mongod" script to work.
+
+    Receives json-request of following format:
+            {"image_name":str, "get_url": str, "save_url":str},
+        where:
+         "image_name" contains image name.
+         "image" contains an image, converted to datatype "Bytes".
+
+    :return: json file w/ response and error (optional).
+    """
     try:
         data = loads(request.get_json())  # Ожидаем входные данные в формате JSON
         print(5)
