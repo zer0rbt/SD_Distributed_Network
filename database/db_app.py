@@ -8,6 +8,13 @@ import base64
 
 app = Flask(__name__)
 
+@app.route('/test', methods=['GET'])
+def test() -> Any:
+    response_data = {
+        'response': 200,
+        'data': 'test',
+    }
+    return jsonify(response_data), 200
 
 @app.route('/save_image', methods=['POST'])
 def save_image() -> Any:
@@ -66,4 +73,4 @@ def get_image_and_send_response() -> Any:
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5003)
+    app.run(host='0.0.0.0', port=5003)
