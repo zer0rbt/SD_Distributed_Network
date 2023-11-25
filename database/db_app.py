@@ -5,6 +5,7 @@ from typing import Any
 from db import get_image_from_db, save_image_to_db
 from json import loads
 import base64
+import os
 
 app = Flask(__name__)
 
@@ -73,4 +74,4 @@ def get_image_and_send_response() -> Any:
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5003)
+    app.run(host=os.getenv('DATABASE_HOST'), port=os.getenv('DATABASE_PORT'))
