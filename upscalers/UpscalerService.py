@@ -24,7 +24,7 @@ class UpscalerService:
 
         self.sdkit_context = context
 
-    def run(self, image_bytes: bytes, scale: int = 4) -> bytes:
+    def run(self, image_bytes: str or bytes, scale: int = 4) -> bytes or str:
         if self.test_mode == True:
             print("UpscalerService run in test mode")
             return image_bytes

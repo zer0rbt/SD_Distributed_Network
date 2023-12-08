@@ -29,17 +29,15 @@ class Controller:
         db_host = os.getenv("DATABASE_HOST")
         db_port = os.getenv("DATABASE_PORT")
         response = requests.post(f"http:/{db_host}:{db_port}/save_image", json=dumps(request_data))
-        return image_uuid
+        return response
 
     def handle(
         self,
         params: dict,
-    ) -> UUID:
+    ) -> None:
         prompt: str = params["prompt"]
 
         generated_image = self.sd_service.run(prompt)
-        uuid: UUID = self.dbfize_image(generated_image)
+        uuid: UUID = params["uuid"]
+        self.dbfize_image(generated_image, uuid)
 
-        self.send_image_to_cdn(uuid, generated_image)
-
-        return uuid

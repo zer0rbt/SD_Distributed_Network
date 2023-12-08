@@ -30,16 +30,26 @@ class Controller:
         response = requests.post(f"http:/{db_host}:{db_port}/save_image", json=dumps(request_data))
         return image_uuid
 
+    def undbfize_image(self, image_uuid: UUID) -> str:
+        request_data = {
+            "data": {
+                "image_name": f"{image_uuid}.png",
+            },
+        }
+        db_host = os.getenv("DATABASE_HOST")
+        db_port = os.getenv("DATABASE_PORT")
+        response = requests.post(f"http:/{db_host}:{db_port}/get_image", json=dumps(request_data)).json()
+        return response["data"]["image"]
+
     def handle(
         self,
         params: dict,
     ) -> UUID:
-        input_image_bytes: str = base64_to_binary(params["image_bytes"])
+        input_image_bytes: str = self.undbfize_image(params["uuid"])
         scale: int = params["scale"]
 
-        upscaled_image = self.upscaler_service.run(input_image_bytes, scale)
-        uuid: UUID = self.dbfize_image(upscaled_image)
-
+        upscaled_image = self.upscaler_service.run(base64_to_binary(input_image_bytes), scale)
+        uuid: UUID = self.dbfize_image(upscaled_image, params["uuid"])
 
         return uuid
 
