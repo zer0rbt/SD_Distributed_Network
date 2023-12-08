@@ -15,7 +15,7 @@ from Controller import Controller
 
 def main():
     ctrl = Controller()
-    queue = "STABLEDIFFUSION_QUEUE"
+    queue = os.getenv("STABLEDIFFUSION_QUEUE")
 
     def handler(
         chan: pika.channel.Channel,
@@ -49,10 +49,10 @@ def main():
         )
     )
     chan = conn.channel()
-    chan.queue_declare(os.getenv(queue))
+    chan.queue_declare(queue)
 
     chan.basic_consume(
-        queue=os.getenv(queue),
+        queue=queue,
         auto_ack=True,
         on_message_callback=handler,
     )
