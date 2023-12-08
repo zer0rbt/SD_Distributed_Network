@@ -28,7 +28,7 @@ class SDService:
 
         # generate the image
         image = generate_images(
-            self.context,
+            self.sdkit_context,
             prompt=prompt,
             seed=420,
             width=512,

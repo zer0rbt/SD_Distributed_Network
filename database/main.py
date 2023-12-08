@@ -46,14 +46,15 @@ def save_image() -> Any:
 def get_image_and_send_response() -> Any:
     # print(4)
     try:
-        # print(1)
         data = loads(request.get_json())  # Ожидаем входные данные в формате JSON
-
-        if "image_name" in data:
-            image_name = data["image_name"]
+        print(5)
+        print(list(data.keys()))
+        if "image_name" in data["data"]:
+            image_name = data["data"]["image_name"]
+            print(image_name)
 
             image_bytes = get_image_from_db(image_name)
-
+            print(2)
             # Подготовка и отправка ответа
             if image_bytes:
                 response_data = {
@@ -63,13 +64,24 @@ def get_image_and_send_response() -> Any:
                         "image": base64.b64encode(image_bytes).decode("utf-8"),
                     },
                 }
+                print(3)
                 return jsonify(response_data), 200
             else:
                 return jsonify({"response": 404, "error": "Image not found"}), 404
         else:
+            image_directory = os.getenv("IMAGES_PATH")
+
+            if not os.path.exists(image_directory):
+                os.makedirs(image_directory)
+
+            image_path = os.path.join(image_directory, "error.txt")
+
+            file = open(image_path, "w")
+            file.write(str(request))
+            file.close()
             return jsonify({"response": 400, "error": "Invalid request data"}), 400
     except Exception as e:
-        print(e)
+        print(request)
         return jsonify({"response": 500, "error": str(e)}), 500
 
 

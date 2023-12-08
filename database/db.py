@@ -17,12 +17,12 @@ def save_image_to_db(image_bytes: bytes, image_name: str) -> None:
 
 def get_image_from_db(image_name: str) -> bytes:
     image_path = os.path.join(os.getenv("IMAGES_PATH"), image_name)
-
+    print(11)
     if not os.path.exists(image_path):
         raise ValueError(f"Изображение '{image_name}' не найдено в базе данных.")
-
-    file = open(image_path)
+    print(12)
+    file = open(image_path, mode="rb")
     image_data = file.read()
     file.close()
-
+    print(13)
     return image_data

@@ -24,14 +24,14 @@ class UpscalerService:
 
         self.sdkit_context = context
 
-    def run(self, image_bytes: str, scale: int = 4) -> bytes:
+    def run(self, image_bytes: bytes, scale: int = 4) -> bytes:
         if self.test_mode == True:
             print("UpscalerService run in test mode")
             return image_bytes
 
         # apply the filter
         image_upscaled = apply_filters(
-            self.context,
+            self.sdkit_context,
             self.model_name,
             Image.open(io.BytesIO(image_bytes)),
             scale=scale,

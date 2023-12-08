@@ -2,9 +2,12 @@ from PIL import Image
 from uuid import uuid4, UUID
 import os
 import sys
+import requests
+from utils.base64_coder import base64_to_binary, binary_to_base64
+from json import loads, dumps
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
-from base64_coder import base64_to_binary
+from utils.base64_coder import base64_to_binary
 from SDService import SDService
 
 
@@ -16,22 +19,16 @@ class Controller:
 
         self.images_cache = {}
 
-    def cache_image(self, image_bytes: bytes) -> UUID:
-        image_uuid = uuid4()
-
-        file_path = os.path.join(
-            os.getenv("IMAGES_CACHE_PATH"),
-            f"{image_uuid}.png",
-        )
-        image_file = open(
-            file_path,
-            "wb",
-        )
-        image_file.write(image_bytes)
-        image_file.close()
-
-        self.images_cache[image_uuid] = file_path
-
+    def dbfize_image(self, image_bytes: bytes, image_uuid: UUID):
+        request_data = {
+            "data": {
+                "image_name": f"{image_uuid}.png",
+                "image": binary_to_base64(image_bytes),
+            },
+        }
+        db_host = os.getenv("DATABASE_HOST")
+        db_port = os.getenv("DATABASE_PORT")
+        response = requests.post(f"http:/{db_host}:{db_port}/save_image", json=dumps(request_data))
         return image_uuid
 
     def handle(
@@ -41,15 +38,8 @@ class Controller:
         prompt: str = params["prompt"]
 
         generated_image = self.sd_service.run(prompt)
-        uuid: UUID = self.cache_image(generated_image)
+        uuid: UUID = self.dbfize_image(generated_image)
 
         self.send_image_to_cdn(uuid, generated_image)
 
         return uuid
-
-    def send_image_to_cdn(
-        self,
-        uuid: UUID,
-        image_bytes: bytes,
-    ):
-        pass
