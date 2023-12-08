@@ -2,7 +2,7 @@ FROM python
 
 WORKDIR /workspace/
 
-COPY ./database ./database
+COPY . ./database
 
 RUN apt-get -y update
 RUN apt -y install python3-pip

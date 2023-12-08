@@ -11,13 +11,17 @@ Distributed computations network, dedicated to allowing faster image generation 
 ## Build
 
 `docker build -t deps -f ./Dockerfile .`
+
 `docker build -t stablediffusion ./stablediffusion/.`
+
 `docker build -t upscaler ./upscalers/.`
-`docker build -t database -f ./database .`
+
+`docker build -t database ./database/.`
 
 ## Usage
 
-`docker run -p 5003:5003 --rm db`
+`docker run --name database1 -v ./:/workspace/cache --env-file ./.env -p 5003:5003 --rm database`
+
 `docker run --name up1 -v ./:/workspace/cache --env-file ./.env --network host --rm upscaler`
 
 ## TODO LIST
