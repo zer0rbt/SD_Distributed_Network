@@ -20,9 +20,11 @@ Distributed computations network, dedicated to allowing faster image generation 
 
 ## Usage
 
-`docker run --name database1 -v ./:/workspace/cache --env-file ./.env -p 5003:5003 --rm database`
+`docker run --name sd1 -v ./:/workspace/cache -v ./models/:/workspace/models --env-file ./.env --network host --rm stablediffusion`
 
-`docker run --name up1 -v ./:/workspace/cache --env-file ./.env --network host --rm upscaler`
+`docker run --name up1 -v ./:/workspace/cache -v ./models/:/workspace/models --env-file ./.env --network host --rm upscaler`
+
+`docker run --name database1 -v ./:/workspace/cache --env-file ./.env -p 5003:5003 --rm database`
 
 ## TODO LIST
 
