@@ -1,4 +1,4 @@
-FROM deps
+FROM v131v/sd-deps
 
 WORKDIR /workspace
 
