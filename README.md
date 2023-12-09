@@ -10,7 +10,7 @@ Distributed computations network, dedicated to allowing faster image generation 
 
 ## Build
 
-`docker build -t deps -f ./Dockerfile .`
+`docker build -t deps -f ./Dockerfile .` (можно загрузить готовый из dockerhub v131v/sd-deps)
 
 `docker build -t stablediffusion ./stablediffusion/.`
 
