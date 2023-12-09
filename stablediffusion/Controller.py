@@ -3,11 +3,10 @@ from uuid import uuid4, UUID
 import os
 import sys
 import requests
-from utils.base64_coder import base64_to_binary, binary_to_base64
 from json import loads, dumps
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
-from utils.base64_coder import base64_to_binary
+from base64_coder import base64_to_binary, binary_to_base64
 from SDService import SDService
 
 
@@ -28,16 +27,19 @@ class Controller:
         }
         db_host = os.getenv("DATABASE_HOST")
         db_port = os.getenv("DATABASE_PORT")
-        response = requests.post(f"http:/{db_host}:{db_port}/save_image", json=dumps(request_data))
+        response = requests.post(f"http://{db_host}:{db_port}/save_image", json=dumps(request_data))
         return response
 
     def handle(
         self,
         params: dict,
-    ) -> None:
+    ) -> UUID:
         prompt: str = params["prompt"]
 
         generated_image = self.sd_service.run(prompt)
         uuid: UUID = params["uuid"]
         self.dbfize_image(generated_image, uuid)
+
+        return uuid
+
 

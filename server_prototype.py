@@ -17,7 +17,7 @@ if __name__ == "__main__":
     """script_paths = ["./stablediffusion/SD_app.py", './database/db_app.py', "./upscalers/Upscaler.app"]
     for script_path in script_paths:
         asyncio.run(init(script_path))"""
-
+    # {"uuid":"1112", "prompt":"anime girl, green hair, smile, white shirt, black baskeri"}
 
     prompt = "anime girl, green hair, smile, white shirt, black baskeri"
     url = "http://127.0.0.1:5001/make_image"

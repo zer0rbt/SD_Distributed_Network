@@ -6,7 +6,7 @@ import requests
 from json import loads, dumps
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
-from utils.base64_coder import base64_to_binary, binary_to_base64
+from base64_coder import base64_to_binary, binary_to_base64
 from UpscalerService import UpscalerService
 
 
@@ -27,7 +27,7 @@ class Controller:
         }
         db_host = os.getenv("DATABASE_HOST")
         db_port = os.getenv("DATABASE_PORT")
-        response = requests.post(f"http:/{db_host}:{db_port}/save_image", json=dumps(request_data))
+        response = requests.post(f"http://{db_host}:{db_port}/save_image", json=dumps(request_data))
         return image_uuid
 
     def undbfize_image(self, image_uuid: UUID) -> str:
@@ -38,8 +38,8 @@ class Controller:
         }
         db_host = os.getenv("DATABASE_HOST")
         db_port = os.getenv("DATABASE_PORT")
-        response = requests.post(f"http:/{db_host}:{db_port}/get_image", json=dumps(request_data)).json()
-        return response["data"]["image"]
+        response = requests.post(f"http://{db_host}:{db_port}/get_image", json=dumps(request_data)).json()
+        return image_uuid
 
     def handle(
         self,

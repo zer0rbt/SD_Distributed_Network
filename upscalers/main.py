@@ -6,7 +6,7 @@ from jsonschema import validate
 from dotenv import load_dotenv
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../schemas/"))
-from schemas.UpscalerSchema import Schema
+from UpscalerSchema import Schema
 from Controller import Controller
 
 

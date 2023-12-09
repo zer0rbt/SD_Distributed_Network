@@ -7,6 +7,7 @@ import os
 class SDService:
     def __init__(self, model_path: str) -> None:
         self.model_name = "stable-diffusion"
+        self.test_mode = False
 
         if os.getenv("TEST_MODE") == "YES":
             self.test_mode = True

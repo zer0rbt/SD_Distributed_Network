@@ -11,6 +11,7 @@ class UpscalerService:
     def __init__(self, model_path: str) -> None:
         self.model_name = "realesrgan"
 
+        self.test_mode = False
         if os.getenv("TEST_MODE") == "YES":
             self.test_mode = True
             print("UpscalerService init in test mode")

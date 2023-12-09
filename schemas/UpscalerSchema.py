@@ -1,5 +1,5 @@
 Schema = {
-    'image_bytes': {
+    'uuid': {
         'type': 'string'
     },
     'scale': {

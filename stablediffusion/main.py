@@ -6,10 +6,10 @@ from jsonschema import validate
 from dotenv import load_dotenv
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../schemas/"))
-from schemas.SDSchema import Schema
+from SDSchema import Schema
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
-from utils.base64_coder import binary_to_base64
+from base64_coder import binary_to_base64
 from Controller import Controller
 
 
@@ -28,12 +28,9 @@ def main():
 
         uuid = ctrl.handle(params)
 
-        file = open(ctrl.cache_image[uuid], "rb")
-        image_bytes = binary_to_base64(file.read())
-        file.close()
 
         message = {
-            "image_bytes": image_bytes,
+            "image_bytes": uuid,
             "scale": 4,
         }
 

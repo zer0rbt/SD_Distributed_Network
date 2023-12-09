@@ -1,4 +1,4 @@
-FROM python:3.8.6
+FROM python:3.8.5
 
 RUN python -m pip install --upgrade pip
 
@@ -13,6 +13,7 @@ RUN pip install asyncio
 RUN pip install requests
 RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116
 RUN pip install sdkit
+
 
 WORKDIR /workspace
 
