@@ -6,7 +6,7 @@ import requests
 from json import loads, dumps
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
-from base64_coder import base64_to_binary, binary_to_base64
+from utils.base64_coder import base64_to_binary, binary_to_base64
 from SDService import SDService
 
 
@@ -21,7 +21,7 @@ class Controller:
     def dbfize_image(self, image_bytes: bytes, image_uuid: UUID):
         request_data = {
             "data": {
-                "image_name": f"{image_uuid}.png",
+                "image_name": f"{image_uuid}.jpeg",
                 "image": binary_to_base64(image_bytes),
             },
         }

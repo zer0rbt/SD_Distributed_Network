@@ -1,6 +1,7 @@
 import sdkit
 from sdkit.models import load_model
 from sdkit.generate import generate_images
+from sdkit.utils import save_images
 import os
 
 
@@ -36,5 +37,12 @@ class SDService:
             height=512,
         )[0]
 
-        # save the image
-        return image.tobytes()
+        image_directory = os.getenv("IMAGES_CACHE_PATH")
+
+        if not os.path.exists(image_directory):
+            os.makedirs(image_directory)
+
+        image_path = os.path.join(image_directory, str(prompt) + ".png")
+        save_images([image], ".")
+        with open("image_0.jpeg", "rb") as f:
+            return f.read()

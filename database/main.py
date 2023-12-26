@@ -6,6 +6,9 @@ from db import get_image_from_db, save_image_to_db
 from json import loads
 import base64
 import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
+from base64_coder import base64_to_binary, binary_to_base64
 
 app = Flask(__name__)
 
@@ -29,7 +32,7 @@ def save_image() -> Any:
         if "image_name" in data["data"] and "image" in data["data"]:
             # Извлечение данных из запроса
             image_name = data["data"]["image_name"]
-            image_bytes = base64.b64decode(data["data"]["image"])
+            image_bytes = base64_to_binary(data["data"]["image"])
 
             save_image_to_db(image_name=image_name, image_bytes=image_bytes)
 

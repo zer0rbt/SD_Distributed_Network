@@ -6,10 +6,10 @@ from jsonschema import validate
 from dotenv import load_dotenv
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../schemas/"))
-from SDSchema import Schema
+from schemas.SDSchema import Schema
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "./../utils/"))
-from base64_coder import binary_to_base64
+from utils.base64_coder import binary_to_base64
 from Controller import Controller
 
 
@@ -30,7 +30,7 @@ def main():
 
 
         message = {
-            "image_bytes": uuid,
+            "uuid": uuid,
             "scale": 4,
         }
 
