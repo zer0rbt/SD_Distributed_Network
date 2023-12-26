@@ -12,6 +12,8 @@ Distributed computations network, dedicated to allowing faster image generation 
 
 `docker build -t deps -f ./Dockerfile .` (можно загрузить готовый из dockerhub v131v/sd-deps)
 
+`docker build -t apiserver ./apiserver/.`
+
 `docker build -t stablediffusion ./stablediffusion/.`
 
 `docker build -t upscaler ./upscalers/.`
@@ -21,6 +23,8 @@ Distributed computations network, dedicated to allowing faster image generation 
 ## Usage
 
 `docker run -it --rm --name rabbitmq -h rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management` - запуск rabbitmq с админкой на порту 15672
+
+`docker run --name api1 --env-file ./.env -p 5004:5004 --rm apiserver`
 
 `docker run --name sd1 -v ./:/workspace/cache -v ./models/:/workspace/models --env-file ./.env --network host --rm stablediffusion` - запуск sd service
 ./ - заменить на путь для временного хранения картинок
