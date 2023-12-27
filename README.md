@@ -1,6 +1,6 @@
 # Stable Diffusion Distributed Network
 
-**Version:** v0.1
+**Version:** v1.0
 
 **ATTENTION:** *WORK IN PROGRESS*
 
@@ -10,7 +10,9 @@ Distributed computations network, dedicated to allowing faster image generation 
 
 ## Build
 
-`docker build -t deps -f ./Dockerfile .` (можно загрузить готовый из dockerhub v131v/sd-deps)
+Note: this section probably needs to be updated
+
+`docker build -t deps -f ./Dockerfile .` 
 
 `docker build -t apiserver ./apiserver/.`
 
@@ -44,20 +46,20 @@ Distributed computations network, dedicated to allowing faster image generation 
 
 ### First Priority (minimum required version)
 
-- [x] Image generator (v0.1)
-- [x] Image upscaler (v0.1)
-- [x] Image storage (v0.1)
-- [x] Server (v0.0.1)
+- [x] Image generator (v1.0)
+- [x] Image upscaler (v1.0)
+- [x] Image storage (v1.0)
+- [x] Server (v1.0)
 
 ### Second priority (optimal version)
 
-- [ ] Message Broker (To Do)
+- [x] Message Broker (v1.0)
 - [ ] Logger (To Do)
 - [ ] Log Storage (To Do)
 
 ### Third priority (minimum required final version)
 
-- [ ] Load Balancer (To Do)
+- [x] Load Balancer (v1.0)
 
 ### Fourth priority (optimal final version)
 
@@ -67,4 +69,4 @@ Distributed computations network, dedicated to allowing faster image generation 
 ## Contributors
 
 - **zer0rbt** - idea & code
-- **v113v** - architecture & code (we hope so :^])
+- **v113v** - architecture & code
